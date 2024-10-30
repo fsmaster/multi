@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Multiplication Test Preparation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            margin: 20px 0 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px; /* Add margin to position the button lower */
+            display: block; /* Make button block-level */
+            margin-left: auto; /* Center button horizontally */
+            margin-right: auto; /* Center button horizontally */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #questions {
+            margin-top: 20px;
+            display: grid; /* Use grid for table-like layout */
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: 10px; /* Space between cells */
+        }
+        .question {
+            margin: 10px 0;
+            font-size: 20px; /* Increase font size for better readability */
+            text-align: center; /* Center text in each cell */
+        }
+        .checkbox-group {
+            text-align: center; /* Center the checkboxes */
+            margin-top: 20px; /* Add margin above checkboxes */
+        }
+        @media print {
+            button {
+                display: none; /* Hide button when printing */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Math Multiplication Test Preparation</h1>
+        <h2>Generate Your Multiplication Questions</h2>
+    </header>
+    
+    <main>
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="range" value="1" checked> 1
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="2"> 2
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="3"> 3
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="4"> 4
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="5"> 5
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="6"> 6
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="7"> 7
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="8"> 8
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="9"> 9
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="10"> 10
+            </label>
+            <label>
+                <input type="checkbox" name="range" value="all"> All
+            </label>
+        </div>
+        <button id="generate">Generate Printable Questions</button>
+        <button id="print1">Print</button>
+        <div id="questions"></div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Math Multiplication Test Preparation. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function generateQuestions() {
+            const questionsContainer = document.getElementById('questions');
+            questionsContainer.innerHTML = ''; // Clear previous questions
+
+            // Get all selected ranges
+            const selectedRanges = Array.from(document.querySelectorAll('input[name="range"]:checked')).map(checkbox => checkbox.value);
+
+            // Generate 60 random multiplication questions (4 rows x 15 columns)
+            for (let i = 0; i < 100; i++) {
+                let num1, num2;
+
+                if (selectedRanges.includes("all")) {
+                    // If "All" is selected, generate both numbers randomly
+                    num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+                    num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+                } else {
+                    // Generate questions based on selected numbers
+                    const randomIndex = Math.floor(Math.random() * selectedRanges.length);
+                    num1 = parseInt(selectedRanges[randomIndex]); // Select a random number from selected ranges
+                    num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+                }
+
+                const question = `${num2} x ${num1} = ___`;
+
+                // Create a new div for the question
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.textContent = question;
+
+                // Append the question to the container
+                questionsContainer.appendChild(questionDiv);
+            }
+  
+        }
+
+        document.getElementById('generate').onclick = generateQuestions;
+document.getElementById('print1').onclick = () => {
+            window.print(); // Open print dialog when "Print" button is clicked
+        };
+
+
+     // Generate questions on startup and invoke print dialog
+        window.onload = () => {
+            generateQuestions();
+
+}
+    </script>
+</body>
+</html>
