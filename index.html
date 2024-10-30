@@ -98,12 +98,13 @@
             <label>
                 <input type="checkbox" name="range" value="9"> 9
             </label>
-           
+
             <label>
                 <input type="checkbox" name="range" value="all"> All
             </label>
         </div>
         <button id="generate">Generate Printable Questions</button>
+        <div># Tasks<input type="number" id="taskCount" class="input-box" value="100" min="1"> <!-- Input for number of tasks --></div>
         <button id="print1">Print</button>
         <div id="questions"></div>
     </main>
@@ -119,9 +120,10 @@
 
             // Get all selected ranges
             const selectedRanges = Array.from(document.querySelectorAll('input[name="range"]:checked')).map(checkbox => checkbox.value);
+            		const taskCount = parseInt(document.getElementById('taskCount').value) || 100; // Get number of tasks from input
 
             // Generate 60 random multiplication questions (4 rows x 15 columns)
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < taskCount; i++) {
                 let num1, num2;
 
                 if (selectedRanges.includes("all")) {
