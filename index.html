@@ -126,13 +126,13 @@
 
                 if (selectedRanges.includes("all")) {
                     // If "All" is selected, generate both numbers randomly
-                    num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
-                    num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+                    num1 = Math.floor(Math.random() * 9) + 1; // Random number between 1 and 10
+                    num2 = Math.floor(Math.random() * 9) + 1; // Random number between 1 and 10
                 } else {
                     // Generate questions based on selected numbers
                     const randomIndex = Math.floor(Math.random() * selectedRanges.length);
                     num1 = parseInt(selectedRanges[randomIndex]); // Select a random number from selected ranges
-                    num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+                    num2 = Math.floor(Math.random() * 9) + 1; // Random number between 1 and 10
                 }
 
                 const question = `${num2} x ${num1} = ___`;
