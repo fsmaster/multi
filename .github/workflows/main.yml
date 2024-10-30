@@ -1,37 +1,18 @@
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
-on:
-  workflow_dispatch
-
-
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: scp files
+on: workflow_dispatch
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
-    # The type of runner that the job will run on
+    name: Build
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        mkdir ../build
-        cp -TR . ../build
-        tar -cvf deploy.tar ../build/
-
+    - uses: actions/checkout@v4
     - name: copy file via ssh password
-      uses: appleboy/ssh-action@0.1.4
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
+        password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "deploy.tar"
-        target: "destination/folder"
+        source: "index.html"
+        target: "/tmp"
