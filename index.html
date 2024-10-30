@@ -56,6 +56,16 @@
             text-align: center; /* Center the checkboxes */
             margin-top: 20px; /* Add margin above checkboxes */
         }
+
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+         
+            padding: 10px;
+            border-radius: 5px;
+        }
+
         @media print {
             button {
                 display: none; /* Hide button when printing */
@@ -65,10 +75,10 @@
 </head>
 <body>
     <header>
-        <h1>Math Multiplication Test Preparation</h1>
-        <h2>Generate Your Multiplication Questions</h2>
+        <h1 id="title">Math Multiplication Test Preparation</h1>
+        <h2 id="title2">Generate Your Multiplication Questions</h2>
     </header>
-    
+
     <main>
         <div class="checkbox-group">
             <label>
@@ -100,15 +110,24 @@
             </label>
 
             <label>
-                <input type="checkbox" name="range" value="all"> All
+                <input type="checkbox" name="range" value="all"> <span id="all">All</span>
             </label>
         </div>
+        <div class="language-selector">
+            <label for="language">Choose language: </label>
+            <select id="language" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="ru">Russian</option>
+                <option value="zh">Chinese</option>
+            </select>
+        </div>
         <button id="generate">Generate Printable Questions</button>
-        <div># Tasks<input type="number" id="taskCount" class="input-box" value="100" min="1"> <!-- Input for number of tasks --></div>
+        <div><span id="ntasks"># Tasks </span><input type="number" id="taskCount" class="input-box" value="100" min="1"> <!-- Input for number of tasks --></div>
         <button id="print1">Print</button>
         <div id="questions"></div>
+
     </main>
-    
+
     <footer>
         <p>&copy; 2024 Math Multiplication Test Preparation. All rights reserved.</p>
     </footer>
@@ -147,7 +166,7 @@
                 // Append the question to the container
                 questionsContainer.appendChild(questionDiv);
             }
-  
+
         }
 
         document.getElementById('generate').onclick = generateQuestions;
@@ -162,5 +181,46 @@ document.getElementById('print1').onclick = () => {
 
 }
     </script>
+
+    <script>const translations = {
+            en: {
+                title: "Math Multiplication Test Preparation",
+                title2: "Generate Your Multiplication Questions",
+                ntasks: "# Tasks ",
+                all: "All",
+                generate: "Generate Printable Questions",
+                print1: "Print"
+            },
+            ru: {
+                title: "Подготовка к тесту на таблицу умножения",
+                title2: "Создать задания",
+                ntasks: "# вопросов ",
+                all: "Все",
+                generate: "Создать вопросы для печати",
+                print1: "Печать"
+            },
+            zh: {
+                title: "数学乘法考试准备 ",
+                title2: "生成乘法问题 ",
+                ntasks: "# 任务 ",
+                all: "都",
+                generate: "生成可打印的问题",
+                print1: "打印"
+            }
+        };
+
+        function changeLanguage() {
+            const selectedLanguage = document.getElementById('language').value;
+            document.getElementById('title').innerText = translations[selectedLanguage].title;
+            document.getElementById('title2').innerText = translations[selectedLanguage].title2;
+            document.getElementById('ntasks').innerText = translations[selectedLanguage].ntasks;
+            document.getElementById('all').innerText = translations[selectedLanguage].all;
+            document.getElementById('generate').innerText = translations[selectedLanguage].generate;
+            document.getElementById('print1').innerText = translations[selectedLanguage].print1;
+        }
+    </script>
+
+
+
 </body>
 </html>
