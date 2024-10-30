@@ -15,4 +15,4 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "index.html"
-        target: "/tmp"
+        target: "/var/www/html/multi.octoberes.com"
