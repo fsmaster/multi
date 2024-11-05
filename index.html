@@ -114,7 +114,7 @@
             </label>
         </div>
         <div class="language-selector">
-            
+
             <select id="language" onchange="changeLanguage()">
                 <option value="en">English</option>
                 <option value="ru">Russian</option>
@@ -139,7 +139,7 @@
 
             // Get all selected ranges
             const selectedRanges = Array.from(document.querySelectorAll('input[name="range"]:checked')).map(checkbox => checkbox.value);
-            		const taskCount = parseInt(document.getElementById('taskCount').value) || 100; // Get number of tasks from input
+            const taskCount = parseInt(document.getElementById('taskCount').value) || 100; // Get number of tasks from input
 
             // Generate 60 random multiplication questions (4 rows x 15 columns)
             for (let i = 0; i < taskCount; i++) {
@@ -170,19 +170,21 @@
         }
 
         document.getElementById('generate').onclick = generateQuestions;
-document.getElementById('print1').onclick = () => {
+        document.getElementById('print1').onclick = () => {
             window.print(); // Open print dialog when "Print" button is clicked
         };
 
 
-     // Generate questions on startup and invoke print dialog
+        // Generate questions on startup and invoke print dialog
         window.onload = () => {
             generateQuestions();
+            fetchVisitCount();
 
-}
+        }
     </script>
 
-    <script>const translations = {
+    <script>
+        const translations = {
             en: {
                 title: "Math Multiplication Test Preparation",
                 title2: "Generate Your Multiplication Questions",
@@ -220,7 +222,42 @@ document.getElementById('print1').onclick = () => {
         }
     </script>
 
+    <script>
+        // Define the URL to access the visit count API
+        const url = 'https://multi.octoberes.com:81/visit?site_id=1';
 
+        // Function to fetch and display visit count
+        async function fetchVisitCount() {
+            try {
+                // Send a request to the API with CORS enabled
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors'  // Enable CORS request
+                });
+
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+
+                // Parse the JSON response
+                const data = await response.json();
+
+                // Display the visits count in the HTML
+                document.getElementById('visitCount').innerText = `Visits: ${data.visits}`;
+            } catch (error) {
+                // Display error message in case of failure
+                document.getElementById('visitCount').innerText = `Failed to load visits: ${error.message}`;
+                console.error('Error fetching visit count:', error);
+            }
+        }
+
+        // Call the function when the page loads
+        fetchVisitCount();
+    </script>
+    
+    
+    <div id="visitCount">Loading visits...</div>
 
 </body>
 </html>
