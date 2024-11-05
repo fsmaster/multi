@@ -176,11 +176,19 @@
 
 
         // Generate questions on startup and invoke print dialog
-        window.onload = () => {
+     //   window.onload = () => {
+     //       generateQuestions();
+     //       fetchVisitCount();
+//
+        //      }
+
+        $(document).ready(function () {
             generateQuestions();
             fetchVisitCount();
+        })
 
-        }
+
+
     </script>
 
     <script>
